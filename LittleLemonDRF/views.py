@@ -24,3 +24,6 @@ def books(request):
             return JsonResponse({'error':'true','message':'required field missing'},status=400)
 
         return JsonResponse(model_to_dict(book), status=201)
+
+def home(request):
+    return HttpResponse("Hi there.")
