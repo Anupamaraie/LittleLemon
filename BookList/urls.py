@@ -20,5 +20,5 @@ from LittleLemonDRF import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include('LittleLemonDRF.urls')),
-    path('',views.home)
+    # path('',views.home)
 ]
