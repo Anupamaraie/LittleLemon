@@ -1,11 +1,15 @@
 from django.urls import path
 from . import views
 
-#urlpatterns = [
+urlpatterns = [
+     path('book-lists',views.BookListView.as_view()),
+     path('book-lists/<int:pk>',views.SingleBookView.as_view()),
+     ]
      # path('books', views.books),
      # path('',views.home),
-     # path('orders',views.Orders.listOrders)
-     # path('books/<int:pk>',views.BookView.as_view())
+     #path('orders',views.Orders.listOrders),
+     #path('books', views.BookView.as_view()),
+     #path('books/<int:pk>',views.Book.as_view())
 # 	path('books', views.BookView.as_view(
 #           {
 #                'get': 'list',
@@ -20,7 +24,6 @@ from . import views
 #                'delete': 'destroy',
 #       })
 # 	)
-# ]
 
 
 #Routing with SimpleRouter class in DRF
@@ -31,8 +34,8 @@ from . import views
 # urlpatterns = router.urls
 
 #Routing with DefaultRouter class in DRF
-from rest_framework.routers import DefaultRouter
+# from rest_framework.routers import DefaultRouter
 
-router = DefaultRouter(trailing_slash=False)
-router.register('books',views.BookView, basename='books')
-urlpatterns = router.urls
+# router = DefaultRouter(trailing_slash=False)
+# router.register('books',views.BookView, basename='books')
+# urlpatterns = router.urls
