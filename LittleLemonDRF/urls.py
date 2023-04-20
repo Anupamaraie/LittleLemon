@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
      path('book-lists',views.BookListView.as_view()),
      path('book-lists/<int:pk>',views.SingleBookView.as_view()),
+     #path('author/<int:pk>', views.author_detail, name='authordet-detail'), #fOR HyperLink
+     #path('books/<int:pk>', views.book_detail, name='book-detail'),
      ]
      # path('books', views.books),
      # path('',views.home),

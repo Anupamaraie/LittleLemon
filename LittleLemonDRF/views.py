@@ -1,6 +1,22 @@
 from rest_framework import generics
-from .models import Book
-from .serializers import BookListSerializer
+from .models import Book, AuthorDet
+from .serializers import BookListSerializer, AuthorSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+
+
+#For Hyperlink
+#@api_view()
+# def author_detail(request, pk):
+# 	authdet = get_object_or_404(AuthorDet,pk=pk)
+# 	serialized_category = AuthorSerializer(authdet)
+# 	return Response(serialized_category.data)
+
+# def book_detail(request, pk):
+# 	book = get_object_or_404(Book,pk=pk)
+# 	serialized_book = BookListSerializer(book, many = True, context={'request':request})
+# 	return (serialized_book.data)
 
 class BookListView(generics.ListCreateAPIView):
 	queryset = Book.objects.all()
@@ -9,7 +25,6 @@ class BookListView(generics.ListCreateAPIView):
 class SingleBookView(generics.RetrieveUpdateAPIView, generics.DestroyAPIView):
 	queryset = Book.objects.all()
 	serializer_class = BookListSerializer
-
 
 
 
