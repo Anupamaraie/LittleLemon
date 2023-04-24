@@ -26,7 +26,38 @@ class SingleBookView(generics.RetrieveUpdateAPIView, generics.DestroyAPIView):
 	queryset = Book.objects.all()
 	serializer_class = BookListSerializer
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAdminUser
+from django.contrib.auth.models import User, Group
 
+@api_view()
+@permission_classes([IsAuthenticated])
+def secret(request):
+	return Response({"message":"Some secret message"})
+
+@api_view()
+@permission_classes([IsAuthenticated])
+def manager_view(request):
+	if request.user.groups.filter(name='Manager').exists():
+		return Response({'message':'Only manager should see this'})
+	else:
+		return Response({'message':'You are not authorized'},403)
+
+@api_view()
+@permission_classes([IsAdminUser])
+def managers(request):
+	username = request.data['username']
+	if username:
+		user = get_object_or_404(User, username=username)
+		managers = Group.objects.get(name="Manager")
+		if request.method == 'POST':
+			managers.user_set.add(user)
+		if request.method == 'DELETE':
+			managers.user_set.remove(user)
+		return Response({"message":"ok"})
+
+	return Response({"message":"error"}, status.HTTP_400_BAD_REQUEST)
 
 
 

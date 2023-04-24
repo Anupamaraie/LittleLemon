@@ -1,9 +1,15 @@
 from django.urls import path
 from . import views
 
+from rest_framework.authtoken.views import obtain_auth_token
+
 urlpatterns = [
      path('book-lists',views.BookListView.as_view()),
      path('book-lists/<int:pk>',views.SingleBookView.as_view()),
+     path('secret/',views.secret),
+     path('api-token-auth/',obtain_auth_token),
+     path('manager-view',views.manager_view),
+     path('groups/managers/users',views.managers)
      #path('author/<int:pk>', views.author_detail, name='authordet-detail'), #fOR HyperLink
      #path('books/<int:pk>', views.book_detail, name='book-detail'),
      ]
